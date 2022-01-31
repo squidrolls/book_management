@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookmanagement.mapper.OpenClassMapper">
+  <resultMap id="BaseResultMap" type="com.example.bookmanagement.domain.OpenClass">
+    <id column="open_id" jdbcType="CHAR" property="openId" />
+    <result column="course_id" jdbcType="INTEGER" property="courseId" />
+    <result column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="start_year" jdbcType="DATE" property="startYear" />
+    <result column="start_term" jdbcType="VARCHAR" property="startTerm" />
+    <result column="grade" jdbcType="INTEGER" property="grade" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    open_id, course_id, teacher_id, start_year, start_term, grade, major
+  </sql>
+  <select id="selectByExample" parameterType="com.example.bookmanagement.domain.OpenClassExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from open_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from open_class
+    where open_id = #{openId,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from open_class
+    where open_id = #{openId,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.example.bookmanagement.domain.OpenClassExample">
+    delete from open_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.example.bookmanagement.domain.OpenClass">
+    insert into open_class (open_id, course_id, teacher_id, 
+      start_year, start_term, grade, 
+      major)
+    values (#{openId,jdbcType=CHAR}, #{courseId,jdbcType=INTEGER}, #{teacherId,jdbcType=INTEGER}, 
+      #{startYear,jdbcType=DATE}, #{startTerm,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
+      #{major,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.bookmanagement.domain.OpenClass">
+    insert into open_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="courseId != null">
+        course_id,
+      </if>
+      <if test="teacherId != null">
+        teacher_id,
+      </if>
+      <if test="startYear != null">
+        start_year,
+      </if>
+      <if test="startTerm != null">
+        start_term,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="openId != null">
+        #{openId,jdbcType=CHAR},
+      </if>
+      <if test="courseId != null">
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="startYear != null">
+        #{startYear,jdbcType=DATE},
+      </if>
+      <if test="startTerm != null">
+        #{startTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.example.bookmanagement.domain.OpenClassExample" resultType="java.lang.Long">
+    select count(*) from open_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update open_class
+    <set>
+      <if test="record.openId != null">
+        open_id = #{record.openId,jdbcType=CHAR},
+      </if>
+      <if test="record.courseId != null">
+        course_id = #{record.courseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherId != null">
+        teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.startYear != null">
+        start_year = #{record.startYear,jdbcType=DATE},
+      </if>
+      <if test="record.startTerm != null">
+        start_term = #{record.startTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null">
+        grade = #{record.grade,jdbcType=INTEGER},
+      </if>
+      <if test="record.major != null">
+        major = #{record.major,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update open_class
+    set open_id = #{record.openId,jdbcType=CHAR},
+      course_id = #{record.courseId,jdbcType=INTEGER},
+      teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      start_year = #{record.startYear,jdbcType=DATE},
+      start_term = #{record.startTerm,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=INTEGER},
+      major = #{record.major,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.bookmanagement.domain.OpenClass">
+    update open_class
+    <set>
+      <if test="courseId != null">
+        course_id = #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="teacherId != null">
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="startYear != null">
+        start_year = #{startYear,jdbcType=DATE},
+      </if>
+      <if test="startTerm != null">
+        start_term = #{startTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where open_id = #{openId,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.bookmanagement.domain.OpenClass">
+    update open_class
+    set course_id = #{courseId,jdbcType=INTEGER},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      start_year = #{startYear,jdbcType=DATE},
+      start_term = #{startTerm,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      major = #{major,jdbcType=VARCHAR}
+    where open_id = #{openId,jdbcType=CHAR}
+  </update>
+</mapper>

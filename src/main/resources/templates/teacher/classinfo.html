@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/teacherBase.js"></script>
+    <script src="/scripts/teacher/showClass.js"></script>
+    <script src="/scripts/teacher/findTextbooks.js"></script>
+    <script src="/scripts/teacher/submitApplication.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${teacher.getTeacherInfo()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <br>
+                <div class="ui large secondary vertical menu">
+                    <a class="active item" href="/teacher/classes">
+                        课程信息
+                    </a>
+                    <div class="ui dropdown item">
+                        <i class="dropdown icon"></i>
+                        教参信息
+                        <div class="menu">
+                            <a class="item" href="/teacher/findbookinfo">查询教参</a>
+                            <a class="item" href="/teacher/findebook">查询电子全文</a>
+                            <a class="item" href="/teacher/buyapplication">申请采购</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <div class="ui vertical segment">
+                    <h2 class="ui header"><i class="clipboard list icon"></i>课程详细信息</h2>
+                </div>
+
+                <div class="ui vertical segment">
+                    <table class="ui large definition table" id="classInfo">
+                        <tbody>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td style="display:none;" id="course_id"><label th:text="${thisOpenClass.getClassInfo().getCourseId()}"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>开课编号</td><td><label th:text="${thisOpenClass.getOpenId()}"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>课程名称</td><td><label th:text="${thisOpenClass.getClassInfo().getCourseName()}"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>开课学年</td><td><label th:text="(${thisOpenClass.getStartYear().getYear()}+1900)+'年'"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>开课学期</td><td><label th:text="'第'+(${thisOpenClass.getStartTerm()})+'学期'"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>面向年级</td><td><label th:text="${thisOpenClass.getGrade()}"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>面向专业</td><td><label th:text="${thisOpenClass.getMajor()}"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>课程介绍</td><td><label th:text="${thisOpenClass.getClassInfo().getCourseIntroduction()}"></label></td>
+                        </tr>
+                        <tr th:each="this:${thisOpenClass}">
+                            <td>课程附件</td><td><label th:text="${thisOpenClass.getUploadAppendKeys()}"></label></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <button type="button" class="ui button" data-toggle="modal" data-target="#add1" >修改简介</button>
+                        <button type="button" class="ui button" data-toggle="modal" data-target="#add2" >上传附件</button>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="add1" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-title">
+                <h3 class="text-center">修改简介</h3>
+            </div>
+            <div class="modal-body">
+                <form id="form-intro">
+                    <div class="form-group has-feedback">
+                        <label for="ad-intro">请在下方文本框输入简介内容：</label>
+                        <div class="input-group">
+                            <textarea id="ad-intro" placeholder="请输入简介内容" style="width: 560px;height:180px;" maxlength="1000"></textarea>
+                        </div>
+                        <span style="display: none;" class="glyphicon glyphicon-remove form-control-feedback"></span>
+                        <span style="display: none;" class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="ui primary button" type="button" onclick="submitIntro()">添加</button>
+                        <button class="ui button" data-dismiss="modal">取消</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+</html>

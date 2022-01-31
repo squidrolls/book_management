@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/base.js"></script>
+    <!--    <link href="/css/myUIstyle.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--    <link rel="stylesheet" href="src/main/resources/static/css/me.css">-->
+</head>
+<body>
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <div class="ui simple dropdown item">
+                            <span th:text="${student.getStudentName()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item" >退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</nav>
+<br>
+<br>
+
+
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui large vertical pointing menu">
+                    <a class="item active" href="/student/index">选课信息</a>
+                    <a class="item" href="/student/classSel">课程筛选</a>
+                    <a class="item" href="/student/classSearch">课程查询</a>
+                </div>
+            </div>
+
+            <div class="ten wide column">
+                <div class="ui vertical segment">
+
+                    <h2 class="ui header"><i class="clipboard list icon"></i>所选课程</h2>
+                </div>
+                <div class="ui vertical segment">
+                    <table class="ui large celled table">
+                        <thead>
+                        <!--                        <tr><th>开课编号</th>-->
+                        <th>开课学年</th>
+                        <th>开课学期</th>
+                        <th>年级</th>
+                        <th>面向专业</th>
+                        <th>课程名称</th>
+                        <th>授课教师</th>
+                        <!--                            <th>课程简介</th>-->
+                        </tr></thead>
+                        <tbody>
+                        <tr th:each="ClasschooseNow:${ClasschooseNow}">
+                            <!--                            <td><label th:text="${ClasschooseNow.getOpenclassInfo.getOpenId()}"></label></td>-->
+                            <td><label th:text="(${ClasschooseNow.getOpenclassInfo.getStartYear().getYear()}+1900)+'年'"></label></td>
+                            <td><label th:text="'第'+(${ClasschooseNow.getOpenclassInfo.getStartTerm()})+'学期'"></label></td>
+                            <td><label th:text="${ClasschooseNow.getOpenclassInfo.getGrade()}"></label></td>
+                            <td><label th:text="${ClasschooseNow.getOpenclassInfo.getMajor()}"></label></td>
+                            <td><label th:text="${ClasschooseNow.getCourseName()}"></label></td>
+                            <td><label th:text="${ClasschooseNow.getTeacherInfo()}"></label></td>
+
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="two wide column">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <table class="ui very basic compact table">
+                    <tbody>
+                    <tr th:each="ClasschooseNow:${ClasschooseNow}">
+                        <td><a th:href="'/student/'+${ClasschooseNow.getCourseId()}+'/showinfo'">
+                            <button class="ui small teal right labeled icon button">
+                                <i class="right arrow icon"></i>
+                                更多
+                            </button>
+                        </a></td>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+    $('.ui.modal')
+        .modal()
+    ;
+</script>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <br>
+        <div class="ui stackable inverted divided grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">杨怡婧</a>
+                    <a href="#" class="item">方霄扬</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">王晓彤</a>
+                    <a href="#" class="item">林菁</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">云帆</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">第23组</a>
+                    <!--                <p>Extra space for a call to action inside the footer that could help re-engage users.</p>-->
+                </div>
+            </div>
+
+            <div class="ui inverted section divider"></div>
+            <div class="ui center aligned container">
+                <div class="ui horizontal inverted small divided link list">
+
+                    <a class="item" href="#" align="center">Copyright@2020 - 2021</a>
+                    <a class="item" href="#" align="center">Contact Us</a>
+                    <!--            <a class="item" href="#">Privacy Policy</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

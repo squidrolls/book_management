@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/teacherBase.js"></script>
+    <script src="/scripts/teacher/showClass.js"></script>
+    <script src="/scripts/teacher/findTextbooks.js"></script>
+    <script src="/scripts/teacher/submitApplication.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${teacher.getTeacherInfo()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <br>
+                <div class="ui large secondary vertical menu">
+                    <br>
+                    <a class="active item" href="/teacher/classes">
+                        课程信息
+                    </a>
+                    <div class="ui dropdown item">
+                        <i class="dropdown icon"></i>
+                        教参信息
+                        <div class="menu">
+                            <a class="item" href="/teacher/findbookinfo">查询教参</a>
+                            <a class="item" href="/teacher/findebook">查询电子全文</a>
+                            <a class="item" href="/teacher/buyapplication">申请采购</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <br>
+                <div class="ui vertical segment">
+                    <h2 class="ui header"><i class="clipboard list icon"></i>查询已开设课程</h2>
+                </div>
+
+                <div class="ui vertical segment">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>开课学年</label>
+                                <select class="ui selection dropdown" name="startYear" id="startYear">
+                                    <option value="0">开课学年</option>
+                                    <option>2018</option>
+                                    <option>2019</option>
+                                    <option>2020</option>
+                                    <option>2021</option>
+                                    <option></option>2022</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>开课学期</label>
+                                <select class="ui selection dropdown" id="startTerm" name="startTerm">
+                                    <option value="0">开课学期</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                </select>
+                            </div>
+                            <button type="button" class="ui tiny button" onclick="submitTime()">查询</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui vertical segment">
+                    <table class="ui celled table">
+                        <thead>
+                        <tr>
+                            <td>开课编号</td>
+                            <td>课程名称</td>
+                            <td>开课学年</td>
+                            <td>开课学期</td>
+                            <td>面向年级</td>
+                            <td>面向专业</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="openClassNow:${openClassNow}">
+                            <td style="display:none;"><label th:text="${openClassNow.getTeacherId()}"></label></td>
+                            <td style="display:none;"><label th:text="${openClassNow.getClassInfo().getCourseId()}"></label></td>
+                            <td><label th:text="${openClassNow.getOpenId()}"></label></td>
+                            <td><label th:text="${openClassNow.getClassInfo().getCourseName()}"></label></td>
+                            <td><label th:text="(${openClassNow.getStartYear().getYear()}+1900)+'年'"></label></td>
+                            <td><label th:text="'第'+(${openClassNow.getStartTerm()})+'学期'"></label></td>
+                            <td><label th:text="${openClassNow.getGrade()}"></label></td>
+                            <td><label th:text="${openClassNow.getMajor()}"></label></td>
+                            <td style="display:none;"><label th:text="${openClassNow.getClassInfo().getCourseIntroduction()}"></label></td>
+                            <td><a th:href="'/teacher/classes/'+${openClassNow.getOpenId()}+'/showinfo'">
+                                <button type="button" class="ui button">详细信息</button>
+                            </a></td>
+                            <td><a th:href="'/teacher/classes/'+${openClassNow.getOpenId()}+'/showthistextbook'">
+                                <button type="button" class="ui button">教参信息</button>
+                            </a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <br>
+        <div class="ui stackable inverted divided grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">杨怡婧</a>
+                    <a href="#" class="item">方霄扬</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">王晓彤</a>
+                    <a href="#" class="item">林菁</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">云帆</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <div class="ui inverted link list">
+                    <a href="#" class="item">第23组</a>
+                    <!--                <p>Extra space for a call to action inside the footer that could help re-engage users.</p>-->
+                </div>
+            </div>
+
+            <div class="ui inverted section divider"></div>
+            <div class="ui center aligned container">
+                <div class="ui horizontal inverted small divided link list">
+
+                    <a class="item" href="#" align="center">Copyright@2020 - 2021</a>
+                    <a class="item" href="#" align="center">Contact Us</a>
+                    <!--            <a class="item" href="#">Privacy Policy</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

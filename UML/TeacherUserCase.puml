@@ -1,0 +1,21 @@
+@startuml
+:教师: as teacher
+package 教师端 {
+    (查询开课情况) as (use2)
+    (查改课程简介) as (use3)
+    (上传教学附件) as (use4)
+    (查询教参信息) as (use5)
+    (添加教参) as (use6)
+    (申请采购) as (use7)
+    }
+
+left to right direction
+teacher -> (use2)
+teacher -> (use3)
+teacher -> (use4)
+teacher -> (use5)
+teacher -> (use6)
+teacher --> (use7)
+
+
+@enduml

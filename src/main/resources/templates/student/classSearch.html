@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/base.js"></script>
+    <script src="scripts/student/submitsearch.js"></script>
+
+    <!--    <link href="/css/myUIstyle.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--    <link rel="stylesheet" href="src/main/resources/static/css/me.css">-->
+</head>
+<body>
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${student.getStudentName()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</nav>
+<br>
+<br>
+
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui large vertical pointing menu">
+                    <a class="item" href="/student/index">选课信息</a>
+                    <a class="item" href="/student/classSel">课程筛选</a>
+                    <a class="item active" href="/student/classSearch">课程查询</a>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <div class="ui vertical segment">
+
+                    <div class="ui grid">
+                        <div class="five wide column">
+                            <div class="ui input">
+                                <input type="text" id="classname" placeholder="课程名称...">
+                            </div>
+
+                        </div>
+                        <div class="four wide column">
+                            <button type="button" class="ui button" onclick="submitsearch()">查询</button>
+                        </div>
+                    </div>
+
+                    <h3 class="ui header"><i class="clipboard list icon"></i>课程</h3>
+                </div>
+
+                <div class="ui vertical segment">
+                    <table class="ui celled table">
+                        <thead>
+                        <tr><th>开课编号</th>
+                            <th>课程名称</th>
+                            <th>开课学年</th>
+                            <th>开课学期</th>
+                            <th>年级</th>
+                            <th>面向专业</th>
+                            <!--                            <th>课程简介</th>-->
+                        </tr></thead>
+                        <tbody>
+                        <tr th:each="allclassser:${allclassser}">
+                            <td><label th:text="${allclassser.getOpenId()}"></label></td>
+                            <td><label th:text="${allclassser.getClassInfo().getCourseName()}"></label></td>
+                            <td><label th:text="(${allclassser.getStartYear().getYear()}+1900)+'年'"></label></td>
+                            <td><label th:text="'第'+(${allclassser.getStartTerm()})+'学期'"></label></td>
+                            <td><label th:text="${allclassser.getGrade()}"></label></td>
+                            <td><label th:text="${allclassser.getMajor()}"></label></td>
+                            <!-- <td style="display:none;"><label th:text="${allclasses.getClassInfo().getCourseIntroduction()}"></label></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script>
+function submitsearch() {
+var searchContent = document.getElementById("classname").value;
+var url = "/student/classSearch/" +searchContent;
+window.location.href = url;
+}
+</script>
+</body>
+</html>
+
+
+
+
+

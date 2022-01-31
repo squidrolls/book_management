@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:图书管理员: as admin
+package 管理员端 {
+    (查看待购教参信息) as (use11)
+    (查看已有教参信息) as (use12)
+}
+left to right direction
+admin -> (use11)
+admin --> (use12)
+
+@enduml

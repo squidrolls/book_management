@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/teacherBase.js"></script>
+    <script src="/scripts/teacher/submitApplication.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+
+<body>
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${teacher.getTeacherInfo()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</nav>
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <br>
+                <div class="ui large secondary vertical menu">
+
+                    <a class="active item" href="/teacher/classes">
+                        课程信息
+                    </a>
+                    <div class="ui dropdown item">
+                        <i class="dropdown icon"></i>
+                        教参信息
+                        <div class="menu">
+                            <a class="item" href="/teacher/findbookinfo">查询教参</a>
+                            <a class="item" href="/teacher/findebook">查询电子全文</a>
+                            <a class="item" href="/teacher/buyapplication">申请采购</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <div class="ui vertical segment">
+                    <h2 class="ui header"><i class="clipboard list icon"></i>教学参考书采购申请</h2>
+                </div>
+                <div class="ui vertical segment">
+                    <form class="ui form" id="buyApplicationForm">
+                        <div class="field">
+                            <label>开课编号</label>
+                            <input id="openId" type="text" name="openId" placeholder="请输入14位开课编号">
+                        </div>
+                        <div class="field">
+                            <label>ISBN号</label>
+                            <input id="isbn" type="text" name="isbn" placeholder="请输入17位ISBN号">
+                        </div>
+                        <div class="field">
+                            <label>书籍名称</label>
+                            <input id="bookName" type="text" name="bookName" placeholder="请输入书籍名称">
+                        </div>
+                        <div class="field">
+                            <label>作者</label>
+                            <input id ="bookAuthor" type="text" name="bookAuthor" placeholder="请输入所有作者姓名">
+                        </div>
+                        <div class="field">
+                            <label>出版社</label>
+                            <input id="press" type="text" name="bookPublish" placeholder="请输入出版社名称">
+                        </div>
+                        <div class="field">
+                            <label>出版日期</label>
+                            <input id="publishDate" type="date" name="bookPrice" placeholder="请输入出版日期">
+                        </div>
+                    </form>
+                    <p></p>
+                    <button class="ui primary button" onclick="submitApplication()">提交</button>
+                    <button class="ui button" onclick="resetApplication()">清空</button>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/components/form.js"> </script>
+<script>
+    $('#buyApplicationForm')
+        .form({
+            fields: {
+                openId: {
+                    identifier  : 'openId',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入开课编号',
+                        },
+                        {
+                            type   : 'regExp[/^[A-Z0-9]{14}$/]',
+                            prompt : '请输入14位仅包含字母与数字开课编号'
+                        },
+                    ]
+                },
+                isbn: {
+                    identifier  : 'isbn',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入ISBN号'
+                        },
+                        {
+                            type   : 'regExp[/^(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)[\\d-]+$/gm]',
+                            prompt : '请输入符合标准的13或17位ISBN号'
+                        }
+                    ]
+                },
+                bookName: {
+                    identifier  : 'bookName',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入书籍名称'
+                        }
+                    ]
+                },
+                bookAuthor: {
+                    identifier  : 'bookAuthor',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入作者'
+                        }
+                    ]
+                },
+                press: {
+                    identifier  : 'press',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入出版社'
+                        }
+                    ]
+                },
+                publishDate: {
+                    identifier  : 'publishDate',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : '请输入出版日期'
+                        }
+                    ]
+                },
+            },
+            inline : true,
+            on     : 'blur'
+        })
+    ;
+</script>
+</body>
+</html>

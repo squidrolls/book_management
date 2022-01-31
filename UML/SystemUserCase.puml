@@ -1,0 +1,24 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:图书管理员: as admin
+:教师: as teacher
+:学生: as student
+package 教学参考书管理系统{
+    usecase "教师端" as (use2)
+    usecase "学生端" as (use3)
+    usecase "图书管理员端" as (use4)
+    usecase "登陆" as (use1)
+}
+
+left to right direction
+teacher --> (use1)
+teacher -> (use2)
+student --> (use1)
+student -> (use3)
+admin -> (use1)
+admin --> (use4)
+
+
+
+@enduml

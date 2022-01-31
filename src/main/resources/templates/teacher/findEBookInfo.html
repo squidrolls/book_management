@@ -1,0 +1,122 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/teacherBase.js"></script>
+    <script src="/scripts/teacher/showClass.js"></script>
+    <script src="/scripts/teacher/findTextbooks.js"></script>
+    <script src="/scripts/teacher/submitApplication.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${teacher.getTeacherInfo()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <br>
+                <div class="ui large secondary vertical menu">
+                    <a class="active item" href="/teacher/classes">
+                        课程信息
+                    </a>
+                    <div class="ui dropdown item">
+                        <i class="dropdown icon"></i>
+                        教参信息
+                        <div class="menu">
+                            <a class="item" href="/teacher/findbookinfo">查询教参</a>
+                            <a class="item" href="/teacher/findebook">查询电子全文</a>
+                            <a class="item" href="/teacher/buyapplication">申请采购</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <div class="ui vertical segment">
+                    <h2 class="ui header"><i class="clipboard list icon"></i>查询电子教参</h2>
+                </div>
+
+                <div class="ui vertical segment">
+                    <div class="ui form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label>查询方式</label>
+                                <select class="ui selection dropdown" name="searchMethod" id="searchMethod">
+                                    <option value="">查询方式</option>
+                                    <option>根据ISBN查找</option>
+                                    <option>根据书名查询</option>
+                                    <option>根据作者查询</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>查询内容</label>
+                                <input type="text" id="searchContent" name="searchContent">
+                            </div>
+                            <button type="button" class="ui button" onclick="submitEBookSearchContent()">查询</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui vertical segment">
+                    <table class="ui celled table">
+                        <thead>
+                        <tr>
+                            <td>ISBN</td>
+                            <td>书名</td>
+                            <td>作者</td>
+                            <td>出版社</td>
+                            <td>出版日期</td>
+                            <td>电子链接</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="ebooks:${ebooks}">
+                            <td><label th:text="${ebooks.getTextbook().getIsbn()}"></label></td>
+                            <td><label th:text="${ebooks.getTextbook().getBookName()}"></label></td>
+                            <td><label th:text="${ebooks.getTextbook().getAuthor()}"></label></td>
+                            <td><label th:text="${ebooks.getTextbook().getPress()}"></label></td>
+                            <td><label th:text="(${ebooks.getTextbook().getPublishDate().getYear()}+1900)+'年'"></label></td>
+                            <td><a href="http://www.apabi.com/hdlgdx/pub.mvc?pid=book.detail&metaid=m.20081225-m008-w009-019&cult=CN">电子全文链接</a></td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+</html>

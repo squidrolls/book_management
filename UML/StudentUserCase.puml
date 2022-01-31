@@ -1,0 +1,18 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+:学生: as student
+package 学生端 {
+    (分类浏览) as (use8)
+    (根据年级专业查询) as (use9)
+    (根据课程名称、代码查询) as (use10)
+    (查看所选课程信息) as (use11)
+    }
+
+left to right direction
+student -> (use8)
+student -> (use9)
+student --> (use10)
+student --> (use11)
+
+@enduml

@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/base.js"></script>
+    <script src="/scripts/student/submit.js"></script>
+    <!--    <link href="/css/myUIstyle.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--    <link rel="stylesheet" href="src/main/resources/static/css/me.css">-->
+</head>
+<body>
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${student.getStudentName()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</nav>
+<br>
+<br>
+
+
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui large vertical pointing menu">
+                    <a class="item" href="/student/index">选课信息</a>
+                    <a class="item active" href="/student/classSel">课程筛选</a>
+                    <a class="item" href="/student/classSearch">课程查询</a>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <div class="ui vertical segment">
+                    <div class="ui grid">
+                        <div class="five wide column">
+                            <!--                    <div class="default text">年级</div>-->
+                            <select id="grade" class="ui dropdown">
+                                <option value="">年级</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="five wide column">
+                            <!--                    <div class="default text">专业</div>-->
+                            <select id="major" class="ui dropdown" >
+                                <option value="">专业</option>
+                                <option>计算机科学</option>
+                                <option>电子信息</option>
+                                <option>英语</option>
+                                <option>社会科学</option>
+                                <option>金融管理</option>
+                            </select>
+                        </div>
+                        <br>
+                        <br>
+                        <div class="four wide column">
+                            <!--                            <br>-->
+                            <button type="button" class="ui button" onclick="submitClass()">筛选</button>
+                        </div>
+                    </div>
+
+
+                    <h3 class="ui header"><i class="clipboard list icon"></i>课程</h3>
+                </div>
+                <div class="ui vertical segment">
+                    <table class="ui celled table">
+                        <thead>
+                        <tr><th>开课编号</th>
+                            <th>课程名称</th>
+                            <th>开课学年</th>
+                            <th>开课学期</th>
+                            <th>年级</th>
+                            <th>面向专业</th>
+                            <!--                            <th>课程简介</th>-->
+                        </tr></thead>
+                        <tbody>
+                        <tr th:each="allclasses:${allclasses}">
+                            <td><label th:text="${allclasses.getOpenId()}"></label></td>
+                            <td><label th:text="${allclasses.getClassInfo().getCourseName()}"></label></td>
+                            <td><label th:text="(${allclasses.getStartYear().getYear()}+1900)+'年'"></label></td>
+                            <td><label th:text="'第'+(${allclasses.getStartTerm()})+'学期'"></label></td>
+                            <td><label th:text="${allclasses.getGrade()}"></label></td>
+                            <td><label th:text="${allclasses.getMajor()}"></label></td>
+                            <!--                            <td style="display:none;"><label th:text="${allclasses.getClassInfo().getCourseIntroduction()}"></label></td>-->
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+<script>
+    $('.dropdown').dropdown({transition: 'drop', on: 'hover' });
+</script>
+</body>
+</html>
+

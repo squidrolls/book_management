@@ -1,0 +1,15 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+
+start
+: 查询开设课程 ;
+: 查看教参信息 ;
+: 添加教参 ;
+: 查询教参 ;
+: 添加教参 ;
+: 查询教参电子原文 ;
+: 添加教参电子原文 ;
+
+stop
+
+@enduml

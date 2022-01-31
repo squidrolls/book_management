@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/base.js"></script>
+    <script src="/scripts/student/sumbitsearch.js"></script>
+    <!--    <link href="/css/myUIstyle.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <!--    <link rel="stylesheet" href="src/main/resources/static/css/me.css">-->
+</head>
+<body>
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${student.getStudentName()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+</nav>
+<br>
+<br>
+
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <div class="ui large vertical pointing menu">
+                    <a class="item active" href="/student/index">选课信息</a>
+                    <a class="item" href="/student/classSel">课程筛选</a>
+                    <a class="item" href="/student/classSearch">课程查询</a>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <div class="ui vertical segment">
+
+                    <h2 class="ui header"><i class="asterisk loading icon"></i>课程简介</h2>
+                </div>
+                <div class="ui text container">
+                    <p th:text="${classes.getCourseIntroduction()}"></p>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="ui vertical segment">
+
+                    <h2 class="ui header"><i class="asterisk loading icon"></i>附件下载</h2>
+
+
+                </div>
+<br>
+                <a href="static/images/ui-icons_444444_256x240.png" download="GFG">
+                    <button type="button" class="ui button">Download</button>
+                </a>
+            </div>
+        </div>
+
+        <br>
+
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+
+
+</body>
+</html>
+
+
+
+
+

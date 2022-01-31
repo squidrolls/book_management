@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>教师系统</title>
+    <script src="/scripts/jquery-3.3.1.min.js"></script>
+    <script src="/scripts/base/teacherBase.js"></script>
+    <script src="/scripts/teacher/showClass.js"></script>
+    <script src="/scripts/teacher/findTextbooks.js"></script>
+    <script src="/scripts/teacher/submitApplication.js"></script>
+    <script src="/scripts/teacher/addTextbook.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+</head>
+<body>
+
+<nav class="ui inverted attached segment ">
+    <div class="ui container">
+        <div class="ui inverted secondary menu">
+            <h1 class="ui teal header item">教学参考书管理系统系统 </h1>
+            <div class="ui right item">
+                <div class="ui inverted compact menu">
+                    <div class="ui simple dropdown item">
+                        <span th:text="${teacher.getTeacherInfo()} +',欢迎您'"></span>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div>
+                                <a href="/adminLogOut" class="item">退出</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div>
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="four wide column">
+                <br>
+                <div class="ui large secondary vertical menu">
+                    <a class="active item" href="/teacher/classes">
+                        课程信息
+                    </a>
+                    <div class="ui dropdown item">
+                        <i class="dropdown icon"></i>
+                        教参信息
+                        <div class="menu">
+                            <a class="item" href="/teacher/findbookinfo">查询教参</a>
+                            <a class="item" href="/teacher/findebook">查询电子全文</a>
+                            <a class="item" href="/teacher/buyapplication">申请采购</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="twelve wide column">
+                <div class="ui vertical segment">
+                    <h2 class="ui header"><i class="clipboard list icon"></i>查询教参</h2>
+                </div>
+
+                <div class="ui vertical segment">
+                    <table class="ui celled table">
+                        <thead>
+                        <tr>
+                            <td>ISBN</td>
+                            <td>书名</td>
+                            <td>作者</td>
+                            <td>出版社</td>
+                            <td>出版日期</td>
+                            <td>馆内链接</td>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr th:each="textbooks:${textbooks}">
+                            <td><label th:text="${textbooks.getIsbn()}"></label></td>
+                            <td><label th:text="${textbooks.getBookName()}"></label></td>
+                            <td><label th:text="${textbooks.getAuthor()}"></label></td>
+                            <td><label th:text="${textbooks.getPress()}"></label></td>
+                            <td><label th:text="(${textbooks.getPublishDate().getYear()}+1900)+'年'"></label></td>
+                            <td><a href="${textbooks.getBookLink()}">馆藏链接</a></td>
+                            <td><button type="button" class="ui button" onclick="deleteTextbook()">删除</button></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="ui button" onclick="turnToAddPage()">添加教参</button>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+</body>
+</html>
